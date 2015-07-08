@@ -31,11 +31,29 @@ public class EmployeeController {
 			ObjectMapper responseMapper = new ObjectMapper();
 			output = responseMapper.writeValueAsString(employeesList);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return processOutput(null, "");
 		}
 		return processOutput(callback, output);
 	}
+	
+/*	@GET
+	@Path("/list")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getEmployeesList() {
+		String callback = "employeeslist";
+		List<Employee> employeesList = null;
+		String output = null;
+		try {
+			employeesList = employeeDAO.getEntityList();
+			ObjectMapper responseMapper = new ObjectMapper();
+			output = responseMapper.writeValueAsString(employeesList);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return processOutput(null, "");
+		}
+		return processOutput(callback, output);
+	}*/
 
 	@GET
 	@Path("/{id}")
@@ -60,8 +78,8 @@ public class EmployeeController {
 				}
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return processOutput(null, "");
 		}
 		return processOutput(null, output);
 	}
@@ -85,10 +103,10 @@ public class EmployeeController {
 			ObjectMapper objectMapper = new ObjectMapper();
 			
 			employee = objectMapper.readValue(employeeString, Employee.class);
-			employeeDAO.saveOrUpdate(employee);
+			employeeDAO.save(employee);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return processOutput(null, "");
 		}
 		output = ""+employee.getEmpid();
 		
@@ -107,10 +125,10 @@ public class EmployeeController {
 			ObjectMapper objectMapper = new ObjectMapper();
 			
 			employee = objectMapper.readValue(employeeString, Employee.class);
-			employeeDAO.saveOrUpdate(employee);
+			employeeDAO.update(employee);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return processOutput(null, "");
 		}
 		output = ""+employee.getEmpid();
 		
@@ -130,9 +148,8 @@ public class EmployeeController {
 			employee = objectMapper.readValue(employeeString, Employee.class);
 			employeeDAO.saveOrUpdate(employee);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-			output = e.getMessage();
+			return processOutput(null, "");
 		}
 		output = ""+employee.getEmpid();
 		
@@ -149,6 +166,7 @@ public class EmployeeController {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return processOutput(null, "");
 		}
 		
 		output = "employee deleted";

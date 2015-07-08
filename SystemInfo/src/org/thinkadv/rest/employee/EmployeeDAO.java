@@ -14,7 +14,27 @@ public class EmployeeDAO {
 		tx.commit();
 		HibernateUtil.close();
 
-		return false;
+		return true;
+	}
+	
+	public boolean save(Employee employee) throws Exception {
+
+		Transaction tx = HibernateUtil.getTransaction();
+		HibernateUtil.getSession().save(employee);
+		tx.commit();
+		HibernateUtil.close();
+
+		return true;
+	}
+	
+	public boolean update(Employee employee) throws Exception {
+
+		Transaction tx = HibernateUtil.getTransaction();
+		HibernateUtil.getSession().update(employee);
+		tx.commit();
+		HibernateUtil.close();
+
+		return true;
 	}
 	
 	
